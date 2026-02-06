@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sultan Murat Dürümcüsü - Online Sipariş</title>
+    <style>
+        :root { --ana: #ba4a00; --koyu: #2c3e50; --acik: #fdf2e9; --yesil: #27ae60; --kirmizi: #c0392b; }
+        body { font-family: -apple-system, sans-serif; background: var(--acik); margin: 0; padding-bottom: 160px; -webkit-tap-highlight-color: transparent; }
+        header { background: var(--ana); color: white; text-align: center; padding: 30px 15px; border-radius: 0 0 40px 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .category-title { color: var(--ana); font-weight: 800; padding: 25px 20px 10px; font-size: 1.3rem; text-transform: uppercase; display: flex; align-items: center; }
+        .category-title::after { content: ''; flex: 1; height: 2px; background: #ddd; margin-left: 15px; }
+        .section { background: white; margin: 0 15px; border-radius: 25px; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .item { padding: 18px; border-bottom: 1px solid #f5f5f5; }
+        .item:last-child { border-bottom: none; }
+        .item-main { display: flex; justify-content: space-between; align-items: flex-start; }
+        .price-tag { color: var(--ana); font-weight: 800; font-size: 1.1rem; margin-top: 5px; display: block; }
+        .add-btn { background: var(--yesil); color: white; border: none; padding: 10px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-bottom: 6px; font-size: 0.9rem; }
+        
+        /* Not Giriş Alanı */
+        .item-note-input { width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #eee; border-radius: 10px; font-size: 0.85rem; box-sizing: border-box; background: #fdfdfd; }
+        
+        #cart-panel { position: fixed; bottom: 0; width: 100%; background: white; border-radius: 35px 35px 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,0.3); z-index: 2000; transition: 0.5s; transform: translateY(calc(100% - 80px)); }
+        #cart-panel.open { transform: translateY(0); }
+        .cart-header { height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; cursor: pointer; }
+        .cart-content { padding: 25px; max-height: 70vh; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #eee; align-items: center; }
+        .wa-btn { background: #25D366; color: white; width: 100%; padding: 20px; border-radius: 20px; border: none; font-size: 1.2rem; font-weight: 900; margin-top: 20px; }
+        .info-input { width: 100%; padding: 15px; margin-top: 12px; border-radius: 15px; border: 2px solid #f0f0f0; box-sizing: border-box; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-size: 2.5rem; margin-bottom: 5px;">👑</div>
+    <h1 style="margin:0; font-size:1.6rem; letter-spacing: 1px;">SULTAN MURAT DÜRÜMCÜSÜ</h1>
+    <p style="margin:5px 0 0; opacity:0.9;">Geleneksel Lezzet, Tam Hizmet</p>
+</header>
+
+<div id="menu-container"></div>
+
+<div id="cart-panel">
+    <div class="cart-header" onclick="toggleCart()">
+        <span style="font-size: 1.1rem; color: var(--ana); font-weight:bold;">🛒 SEPET (<span id="count">0</span>)</span>
+        <span id="total-top" style="font-size: 1.3rem; font-weight: 900; color: var(--yesil);">0 TL</span>
+    </div>
+    <div class="cart-content">
+        <div id="cart-items"></div>
+        
+        <p style="font-weight:bold; margin-top:15px; color: #7f8c8d;">Kurye Bahşişi:</p>
+        <div style="display:flex; gap:10px; margin-bottom:15px;">
+            <button onclick="setTip(0)" style="flex:1; padding:10px; border-radius:10px; border:1px solid #ddd; background:white;">Yok</button>
+            <button onclick="setTip(40)" style="flex:1; padding:10px; border-radius:10px; border:1px solid #ddd; background:white;">40 TL</button>
+            <button onclick="setTip(80)" style="flex:1; padding:10px; border-radius:10px; border:1px solid #ddd; background:white;">80 TL</button>
+        </div>
+
+        <input type="text" id="name" class="info-input" placeholder="Adınız Soyadınız">
+        <textarea id="address" class="info-input" placeholder="Masa No veya Adresiniz"></textarea>
+        
+        <div style="display:flex; justify-content:space-between; margin-top:25px; font-size:1.5rem; font-weight:900; border-top: 2px solid #eee; padding-top:15px;">
+            <span>TOPLAM:</span>
+            <span id="final-total" style="color: var(--kirmizi);">0 TL</span>
+        </div>
+        <button class="wa-btn" onclick="sendSiparis()">Siparişi Onayla</button>
+    </div>
+</div>
+
+<script>
+    const menuData = [
+        { cat: "🌯 DÜRÜMLER", items: [
+            { id: 1, n: "Adana Dürüm", p: 200, canDouble: true },
+            { id: 2, n: "Urfa Dürüm", p: 200, canDouble: true },
+            { id: 3, n: "Et Şiş Dürüm", p: 220, canDouble: true },
+            { id: 4, n: "Tavuk Şiş Dürüm", p: 200, canDouble: true }
+        ]},
+        { cat: "🍽️ PORSİYON KEBAPLAR", items: [
+            { id: 6, n: "Adana Porsiyon", p: 400, can15: true },
+            { id: 7, n: "Urfa Porsiyon", p: 400, can15: true },
+            { id: 8, n: "Et Şiş Porsiyon", p: 440, can15: true },
+            { id: 9, n: "Tavuk Şiş Porsiyon", p: 400, can15: true },
+            { id: 10, n: "Kanat Izgara Porsiyon", p: 400, can15: true },
+            { id: 11, n: "Karışık Izgara", p: 950 }
+        ]},
+        { cat: "🥣 ÇORBA VE SALATA", items: [
+            { id: 12, n: "Mercimek Çorbası", p: 90 },
+            { id: 13, n: "Az Mercimek Çorbası", p: 50 },
+            { id: 14, n: "Gavurdağı Salatası", p: 130 },
+            { id: 15, n: "Çoban Salata", p: 90 }
+        ]},
+        { cat: "🥤 İÇECEKLER", items: [
+            { id: 16, n: "1 Litre Kola", p: 100 },
+            { id: 17, n: "Şişe Cam Kola", p: 55 },
+            { id: 18, n: "Ayran (Açık/Büyük)", p: 45 },
+            { id: 19, n: "Şalgam Suyu", p: 40 },
+            { id: 20, n: "Kutu İçecekler", p: 60 },
+            { id: 21, n: "Soda", p: 30 },
+            { id: 22, n: "Su", p: 15 }
+        ]}
+    ];
+
+    let cart = [];
+    let tip = 0;
+
+    function render() {
+        let h = "";
+        menuData.forEach(c => {
+            h += `<div class="category-title">${c.cat}</div><div class="section">`;
+            c.items.forEach(i => {
+                h += `<div class="item">
+                    <div class="item-main">
+                        <div><b>${i.n}</b><span class="price-tag">${i.p} TL</span></div>
+                        <div style="display:flex; flex-direction:column; gap:5px;">
+                            <button class="add-btn" onclick="addToCart(${i.id}, 'Normal')">EKLE</button>
+                            ${i.canDouble ? `<button class="add-btn" style="background:#e67e22" onclick="addToCart(${i.id}, 'Duble')">DUBLE (400 TL)</button>` : ''}
+                            ${i.can15 ? `<button class="add-btn" style="background:#3498db" onclick="addToCart(${i.id}, '1.5')">1.5 POR (${i.p*1.5} TL)</button>` : ''}
+                        </div>
+                    </div>
+                    <input type="text" class="item-note-input" id="note-${i.id}" placeholder="Notunuz: (Örn: Soğansız olsun, acısı bol...)">
+                </div>`;
+            });
+            h += `</div>`;
+        });
+        document.getElementById('menu-container').innerHTML = h;
+    }
+
+    function addToCart(id, type) {
+        const item = menuData.flatMap(m => m.items).find(x => x.id === id);
+        const noteInput = document.getElementById(`note-${id}`);
+        let finalPrice = item.p;
+        let nameExt = "";
+
+        if(type === 'Duble') { finalPrice = item.p * 2; nameExt = " (DUBLE)"; }
+        else if(type === '1.5') { finalPrice = item.p * 1.5; nameExt = " (1.5 POR)"; }
+
+        cart.push({ 
+            ...item, 
+            n: item.n + nameExt, 
+            finalPrice: Math.round(finalPrice), 
+            note: noteInput.value 
+        });
+        
+        noteInput.value = ""; // Eklendikten sonra temizle
+        updateCart();
+        if(!document.getElementById('cart-panel').classList.contains('open')) toggleCart();
+    }
+
+    function updateCart() {
+        const list = document.getElementById('cart-items');
+        list.innerHTML = "";
+        let total = 0;
+        cart.forEach((i, index) => {
+            total += i.finalPrice;
+            list.innerHTML += `<div class="cart-item">
+                <div><b>${i.n}</b><br><small style="color:#777">${i.note || 'Not yok'}</small></div>
+                <div style="font-weight:bold;">${i.finalPrice} TL <button onclick="removeItem(${index})" style="color:var(--kirmizi); border:none; background:none; font-weight:bold; margin-left:8px;">✕</button></div>
+            </div>`;
+        });
+        document.getElementById('count').innerText = cart.length;
+        document.getElementById('total-top').innerText = (total + tip) + " TL";
+        document.getElementById('final-total').innerText = (total + tip) + " TL";
+    }
+
+    function removeItem(idx) { cart.splice(idx, 1); updateCart(); }
+    function setTip(val) { tip = val; updateCart(); }
+    function toggleCart() { document.getElementById('cart-panel').classList.toggle('open'); }
+
+    function sendSiparis() {
+        const n = document.getElementById('name').value;
+        const a = document.getElementById('address').value;
+        if(!n || !a || cart.length === 0) return alert("Lütfen adınızı, adresinizi girin ve ürün seçin!");
+        
+        let m = `*👑 SULTAN MURAT SİPARİŞİ 👑*%0A%0A👤 *Müşteri:* ${n}%0A📍 *Adres/Masa:* ${a}%0A%0A---%0A`;
+        cart.forEach(i => m += `✅ *${i.n}*%0A   📝 *Not:* ${i.note || 'Standart'}%0A   💵 *Fiyat:* ${i.finalPrice} TL%0A%0A`);
+        if(tip > 0) m += `💰 *Kurye Bahşişi:* ${tip} TL%0A`;
+        m += `*⭐ TOPLAM TUTAR: ${document.getElementById('final-total').innerText}*`;
+        
+        window.open(`https://wa.me/905466122000?text=${m}`);
+    }
+    render();
+</script>
+</body>
+</html>
