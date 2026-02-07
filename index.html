@@ -10,31 +10,30 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <style>
-        :root { --ana: #ba4a00; --acik: #fdf2e9; --yesil: #27ae60; --kirmizi: #c0392b; --mavi: #2980b9; }
+        :root { --ana: #ba4a00; --acik: #fdf2e9; --yesil: #27ae60; --kirmizi: #c0392b; --mavi: #2980b9; --turuncu: #d35400; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--acik); margin: 0; padding: 10px; padding-bottom: 120px; -webkit-tap-highlight-color: transparent; }
         
         header { background: var(--ana); color: white; text-align: center; padding: 25px 15px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .logo-circle { width: 60px; height: 60px; background: white; color: var(--kirmizi); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; border: 3px solid var(--kirmizi); }
-        header h1 { margin: 0; font-size: 1.3rem; text-transform: uppercase; }
-        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.9; font-style: italic; }
         
         .category-title { color: var(--ana); font-weight: bold; margin: 25px 5px 10px; font-size: 1.1rem; border-left: 4px solid var(--ana); padding-left: 10px; }
         .section { background: white; border-radius: 18px; padding: 10px 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
         .item:last-child { border-bottom: none; }
         
-        .add-btn { background: var(--yesil); color: white; width: 42px; height: 42px; border-radius: 10px; border: none; font-size: 26px; font-weight: bold; cursor: pointer; }
-        .duble-btn { background: var(--mavi); color: white; padding: 8px 12px; border-radius: 8px; border: none; font-size: 11px; font-weight: bold; margin-right: 8px; cursor: pointer; }
+        .add-btn { background: var(--yesil); color: white; width: 38px; height: 38px; border-radius: 10px; border: none; font-size: 22px; font-weight: bold; cursor: pointer; }
+        .extra-btn { background: var(--mavi); color: white; padding: 8px 10px; border-radius: 8px; border: none; font-size: 10px; font-weight: bold; margin-right: 5px; cursor: pointer; }
+        .pors-btn { background: var(--turuncu); color: white; padding: 8px 10px; border-radius: 8px; border: none; font-size: 10px; font-weight: bold; margin-right: 5px; cursor: pointer; }
 
         #cart-panel { position: fixed; bottom: 0; left: 0; right: 0; background: white; z-index: 10000; border-radius: 25px 25px 0 0; box-shadow: 0 -5px 30px rgba(0,0,0,0.2); transition: 0.4s ease-in-out; transform: translateY(calc(100% - 75px)); }
         #cart-panel.open { transform: translateY(0); }
-        .cart-header { height: 75px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; cursor: pointer; border-bottom: 1px solid #eee; }
+        .cart-header { height: 75px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; cursor: pointer; }
         .cart-content { padding: 20px; max-height: 70vh; overflow-y: auto; }
         .cart-item { margin-bottom: 15px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
         
-        .item-note-input { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #eee; border-radius: 10px; font-size: 13px; box-sizing: border-box; background: #fafafa; }
-        .wa-btn { background: #25D366; color: white; width: 100%; padding: 18px; border-radius: 15px; border: none; font-size: 1.1rem; font-weight: bold; margin-top: 15px; cursor: pointer; }
-        input[type="text"], textarea { width: 100%; padding: 14px; margin-top: 10px; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; }
+        .item-note-input { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #eee; border-radius: 8px; font-size: 13px; box-sizing: border-box; background: #fafafa; }
+        .wa-btn { background: #25D366; color: white; width: 100%; padding: 18px; border-radius: 15px; border: none; font-size: 1.1rem; font-weight: bold; margin-top: 15px; }
+        input[type="text"], textarea { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; }
     </style>
 </head>
 <body>
@@ -48,43 +47,40 @@
 <div id="menu-container"></div>
 
 <div id="cart-panel">
-    <div style="width: 40px; height: 5px; background: #ddd; border-radius: 10px; margin: 10px auto -5px;"></div>
     <div class="cart-header" onclick="toggleCart()">
         <span style="font-weight: bold; color: var(--ana);">🛒 SEPETİM (<span id="urun-adet">0</span>)</span>
         <span style="font-weight: 900; font-size: 1.3rem; color: var(--yesil);" id="panel-toplam">0 TL</span>
     </div>
     <div class="cart-content">
         <div id="cart-items-list"></div>
-        <div style="margin-top: 10px;">
-            <input type="text" id="musteri-ad" placeholder="Adınız Soyadınız">
-            <textarea id="musteri-adres" rows="2" placeholder="Teslimat Adresiniz (Mahalle, Kapı No...)"></textarea>
-        </div>
-        <div style="display:flex; justify-content:space-between; margin-top:20px; font-size:1.4rem; font-weight:bold; border-top: 2px solid #eee; padding-top: 15px;">
+        <input type="text" id="musteri-ad" placeholder="Adınız Soyadınız">
+        <textarea id="musteri-adres" rows="2" placeholder="Teslimat Adresiniz"></textarea>
+        <div style="display:flex; justify-content:space-between; margin-top:20px; font-size:1.4rem; font-weight:bold; border-top: 1px solid #eee; padding-top:10px;">
             <span>TOPLAM:</span>
-            <span style="color:var(--yesil);"><span id="toplam-fiyat">0</span> TL</span>
+            <span id="toplam-fiyat">0</span><span> TL</span>
         </div>
-        <button class="wa-btn" onclick="siparisGonder()">Siparişi WhatsApp'a Gönder</button>
+        <button class="wa-btn" onclick="siparisGonder()">WhatsApp'a Gönder</button>
     </div>
 </div>
 
 <script>
     const menu = [
         { c: "ÇORBALAR", i: [
-            { id: 1, n: "Mercimek Çorba", p: 90 },
-            { id: 2, n: "Az Mercimek Çorba", p: 50 }
+            { id: 1, n: "Mercimek Çorba", p: 90, noNote: false },
+            { id: 2, n: "Az Mercimek Çorba", p: 50, noNote: false }
         ]},
         { c: "DÜRÜMLER", i: [
-            { id: 3, n: "Adana Dürüm", p: 200, hasDuble: true },
-            { id: 4, n: "Urfa Dürüm", p: 200, hasDuble: true },
-            { id: 5, n: "Et Dürüm", p: 220, hasDuble: true },
-            { id: 6, n: "Tavuk Dürüm", p: 200, hasDuble: true }
+            { id: 3, n: "Adana Dürüm", p: 200, duble: 400 },
+            { id: 4, n: "Urfa Dürüm", p: 200, duble: 400 },
+            { id: 5, n: "Et Dürüm (Şiş)", p: 220, duble: 440 },
+            { id: 6, n: "Tavuk Dürüm", p: 200, duble: 400 }
         ]},
         { c: "PORSİYONLAR", i: [
-            { id: 7, n: "Adana Porsiyon", p: 400 },
-            { id: 8, n: "Urfa Porsiyon", p: 400 },
-            { id: 9, n: "Et Şiş Porsiyon", p: 440 },
-            { id: 10, n: "Tavuk Porsiyon", p: 400 },
-            { id: 11, n: "Kanat Porsiyon", p: 400 },
+            { id: 7, n: "Adana Porsiyon", p: 400, bucuk: 600 },
+            { id: 8, n: "Urfa Porsiyon", p: 400, bucuk: 600 },
+            { id: 9, n: "Et Şiş Porsiyon", p: 440, bucuk: 660 },
+            { id: 10, n: "Tavuk Porsiyon", p: 400, bucuk: 600 },
+            { id: 11, n: "Kanat Porsiyon", p: 400, bucuk: 600 },
             { id: 12, n: "Karışık Izgara", p: 950 }
         ]},
         { c: "TATLI VE BAKLAVA", i: [
@@ -94,11 +90,10 @@
             { id: 16, n: "Tulumba (1 KG)", p: 250, isKg: true }
         ]},
         { c: "İÇECEKLER", i: [
-            { id: 24, n: "Su", p: 15, noNote: true },
-            { id: 17, n: "Küçük Ayran", p: 30, noNote: true },
-            { id: 18, n: "Büyük Ayran", p: 40, noNote: true },
-            { id: 19, n: "Kutu Kola", p: 60, noNote: true },
-            { id: 20, n: "Kutu Fanta", p: 60, noNote: true },
+            { id: 17, n: "Su", p: 15, noNote: true },
+            { id: 18, n: "Küçük Ayran", p: 30, noNote: true },
+            { id: 19, n: "Büyük Ayran", p: 40, noNote: true },
+            { id: 20, n: "Kutu Kola/Fanta", p: 60, noNote: true },
             { id: 21, n: "Şişe Kola", p: 50, noNote: true },
             { id: 22, n: "1 Litre Kola", p: 90, noNote: true },
             { id: 23, n: "Soda", p: 30, noNote: true }
@@ -113,10 +108,11 @@
             html += `<div class="category-title">${cat.c}</div><div class="section">`;
             cat.i.forEach(item => {
                 html += `<div class="item">
-                    <div style="flex:1"><b>${item.n}</b><br><span style="color:var(--ana); font-weight:bold;">${item.p} TL</span></div>
+                    <div style="flex:1"><b>${item.n}</b><br><span style="color:var(--ana)">${item.p} TL</span></div>
                     <div style="display:flex; align-items:center;">
-                        ${item.hasDuble ? `<button class="duble-btn" onclick="addToCart(${item.id}, true)">Duble +220₺</button>` : ''}
-                        <button class="add-btn" onclick="addToCart(${item.id}, false)">+</button>
+                        ${item.duble ? `<button class="extra-btn" onclick="addToCart(${item.id}, 'duble')">Duble</button>` : ''}
+                        ${item.bucuk ? `<button class="pors-btn" onclick="addToCart(${item.id}, 'bucuk')">1.5 Por.</button>` : ''}
+                        <button class="add-btn" onclick="addToCart(${item.id}, 'normal')">+</button>
                     </div>
                 </div>`;
             });
@@ -125,11 +121,14 @@
         document.getElementById('menu-container').innerHTML = html;
     }
 
-    function addToCart(id, isDuble) {
+    function addToCart(id, type) {
         const itm = menu.flatMap(c => c.i).find(x => x.id === id);
-        const cartId = isDuble ? id + "_duble" : id;
-        const finalName = isDuble ? "Duble " + itm.n : itm.n;
-        const finalPrice = isDuble ? itm.p + 220 : itm.p;
+        let finalName = itm.n;
+        let finalPrice = itm.p;
+        const cartId = id + "_" + type;
+
+        if(type === 'duble') { finalName = "Duble " + itm.n; finalPrice = itm.duble; }
+        if(type === 'bucuk') { finalName = "1.5 " + itm.n; finalPrice = itm.bucuk; }
 
         if (!cart[cartId]) {
             cart[cartId] = { n: finalName, p: finalPrice, qty: 1, note: "", noNote: itm.noNote, isKg: itm.isKg };
@@ -141,10 +140,10 @@
 
     function toggleCart() { document.getElementById('cart-panel').classList.toggle('open'); }
 
-    function changeQty(id, val) {
-        if (cart[id]) {
-            cart[id].qty += val;
-            if (cart[id].qty <= 0) delete cart[id];
+    function changeQty(cid, val, isKg) {
+        if (cart[cid]) {
+            cart[cid].qty += val;
+            if (cart[cid].qty <= 0) delete cart[cid];
             updateUI();
         }
     }
@@ -153,20 +152,20 @@
         const list = document.getElementById('cart-items-list');
         list.innerHTML = "";
         let total = 0, count = 0;
-        Object.keys(cart).forEach(id => {
-            const i = cart[id];
+        Object.keys(cart).forEach(cid => {
+            const i = cart[cid];
             let sum = i.p * i.qty;
             total += sum; count++;
             list.innerHTML += `<div class="cart-item">
                 <div style="display:flex; justify-content:space-between; font-weight:bold;"><span>${i.n}</span><span>${sum} TL</span></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
                     <small>Miktar: ${i.qty} ${i.isKg ? 'Kg' : 'Adet'}</small>
                     <div>
-                        <button onclick="changeQty('${id}', ${i.isKg ? -0.5 : -1})" style="width:35px; height:30px; border-radius:5px; border:1px solid #ddd;">-</button>
-                        <button onclick="changeQty('${id}', ${i.isKg ? 0.5 : 1})" style="width:35px; height:30px; border-radius:5px; border:1px solid #ddd;">+</button>
+                        <button onclick="changeQty('${cid}', ${i.isKg ? -0.5 : -1}, ${i.isKg})" style="width:30px">-</button>
+                        <button onclick="changeQty('${cid}', ${i.isKg ? 0.5 : 1}, ${i.isKg})" style="width:30px">+</button>
                     </div>
                 </div>
-                ${!i.noNote ? `<input type="text" class="item-note-input" placeholder="Özel notunuz..." oninput="cart['${id}'].note = this.value" value="${i.note}">` : ''}
+                ${!i.noNote ? `<input type="text" class="item-note-input" placeholder="Not (Örn: Soğansız, bol fıstıklı vb.)" oninput="cart['${cid}'].note = this.value" value="${i.note}">` : ''}
             </div>`;
         });
         document.getElementById('toplam-fiyat').innerText = total;
@@ -177,12 +176,12 @@
     function siparisGonder() {
         const ad = document.getElementById('musteri-ad').value;
         const adr = document.getElementById('musteri-adres').value;
-        if (!ad || !adr || Object.keys(cart).length === 0) { alert("Lütfen ürün seçin ve adresinizi yazın!"); return; }
-        let msg = `*SULTAN MURAT DÜRÜMCÜSÜ SİPARİŞİ*%0A👤 *Müşteri:* ${ad}%0A📍 *Adres:* ${adr}%0A%0A`;
+        if (!ad || !adr || Object.keys(cart).length === 0) { alert("Bilgileri doldurun!"); return; }
+        let msg = `*SULTAN MURAT DÜRÜMCÜSÜ*%0A👤 *${ad}*%0A📍 *${adr}*%0A%0A`;
         Object.values(cart).forEach(i => {
-            msg += `✅ *${i.qty} ${i.isKg?'Kg':'Adet'}* ${i.n}${i.note ? ' ('+i.note+')' : ''}%0A`;
+            msg += `✅ ${i.qty} ${i.isKg?'Kg':'Adet'} ${i.n}${i.note ? ' ('+i.note+')' : ''}%0A`;
         });
-        msg += `%0A*TOPLAM TUTAR: ${document.getElementById('toplam-fiyat').innerText} TL*`;
+        msg += `%0A*TOPLAM: ${document.getElementById('toplam-fiyat').innerText} TL*`;
         window.open(`https://wa.me/905466122000?text=${msg}`);
     }
     renderMenu();
