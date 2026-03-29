@@ -3,202 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sultan Murat Dürümcüsü - Menü</title>
+    <title>Sultan Murat Dürümcüsü</title>
     <style>
-        :root { --primary: #a34e25; --bg: #fff5eb; --card: #ffffff; --green: #25D366; --red: #e74c3c; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: #333; padding-bottom: 110px; }
-        .header { background-color: var(--primary); color: white; text-align: center; padding: 35px 15px; border-radius: 0 0 30px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .logo-circle { background: white; width: 75px; height: 75px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--primary); font-size: 36px; font-weight: bold; border: 3px solid rgba(255,255,255,0.3); }
-        .header h1 { margin: 5px 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; }
-        .header p { margin: 0; font-style: italic; opacity: 0.9; font-size: 14px; }
-        .container { padding: 15px; max-width: 500px; margin: auto; }
-        .category-title { border-left: 5px solid var(--primary); padding-left: 12px; margin: 30px 0 15px; font-weight: bold; color: var(--primary); font-size: 22px; text-transform: uppercase; }
-        .item-card { background: var(--card); border-radius: 18px; padding: 18px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(163, 78, 37, 0.08); border: 1px solid rgba(163, 78, 37, 0.05); }
-        .item-main { display: flex; justify-content: space-between; align-items: center; }
-        .item-info h4 { margin: 0; font-size: 17px; color: #222; }
-        .item-info p { margin: 6px 0 0; color: var(--primary); font-weight: bold; font-size: 16px; }
-        .controls { display: flex; align-items: center; gap: 12px; }
-        .btn { color: white; border: none; width: 35px; height: 35px; border-radius: 10px; font-size: 20px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .btn-plus { background: var(--green); }
-        .btn-minus { background: var(--red); }
-        .btn:active { transform: scale(0.9); }
-        .qty { font-weight: bold; font-size: 18px; min-width: 20px; text-align: center; }
+        :root { --primary: #a34e25; --bg: #fff5eb; --card: #ffffff; --green: #4caf50; --text: #4e2a19; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background-color: var(--bg); color: var(--text); padding-bottom: 120px; }
         
-        /* Seçenek Butonları (Duble / 1.5) */
-        .options { display: flex; gap: 8px; margin-top: 12px; border-top: 1px inset #eee; padding-top: 10px; }
-        .opt-btn { background: #eee; border: 1px solid #ddd; padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: 0.3s; }
-        .opt-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .header { background-color: var(--primary); color: white; text-align: center; padding: 40px 20px; border-radius: 0 0 30px 30px; margin-bottom: 20px; }
+        .logo-circle { background: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--primary); font-size: 38px; font-weight: bold; }
+        .header h1 { margin: 5px 0; font-size: 28px; text-transform: uppercase; }
+        .header p { margin: 0; font-size: 15px; opacity: 0.9; }
 
-        .cart-bar { position: fixed; bottom: 20px; left: 15px; right: 15px; background: white; padding: 18px; border-radius: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -5px 25px rgba(0,0,0,0.15); cursor: pointer; max-width: 470px; margin: auto; border: 2px solid var(--green); z-index: 100; }
-        .cart-info { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #333; font-size: 16px; }
-        .cart-total { color: var(--green); font-weight: 800; font-size: 19px; }
+        .container { padding: 0 15px; max-width: 500px; margin: auto; }
+        .category-title { border-left: 4px solid var(--primary); padding-left: 12px; margin: 30px 0 15px; font-weight: bold; color: var(--primary); font-size: 22px; text-transform: uppercase; }
+
+        .item-card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .item-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .item-info h4 { margin: 0; font-size: 18px; color: #000; }
+        .item-info p { margin: 5px 0 0; color: var(--primary); font-weight: bold; font-size: 17px; }
+
+        .controls { display: flex; align-items: center; gap: 10px; }
+        .btn-plus { background: var(--green); color: white; border: none; width: 40px; height: 40px; border-radius: 12px; font-size: 24px; cursor: pointer; }
+        .btn-minus { background: #eee; color: #666; border: none; width: 30px; height: 30px; border-radius: 8px; font-size: 18px; cursor: pointer; }
+
+        .options-row { display: flex; gap: 10px; margin-top: 15px; border-top: 1px solid #f0f0f0; padding-top: 12px; }
+        .opt-btn { background: #f0f0f0; border: none; padding: 8px 15px; border-radius: 10px; font-size: 13px; font-weight: bold; color: #555; cursor: pointer; flex: 1; }
+        .opt-btn.active { background: #4a90e2; color: white; }
+
+        .note-area { margin-top: 20px; }
+        .note-area textarea { width: 100%; border-radius: 15px; border: 1px solid #ddd; padding: 12px; font-family: inherit; resize: none; box-sizing: border-box; }
+
+        /* Alt Sepet Çubuğu */
+        .cart-bar { position: fixed; bottom: 20px; left: 15px; right: 15px; background: white; padding: 20px; border-radius: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -5px 30px rgba(0,0,0,0.15); cursor: pointer; max-width: 470px; margin: auto; z-index: 1000; border: 2px solid var(--green); }
+        .cart-total { color: var(--green); font-weight: 800; font-size: 20px; }
+
+        /* Onay Pop-up (Modal) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 25px; padding: 25px; max-height: 80vh; overflow-y: auto; }
+        .modal-header { border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 15px; font-weight: bold; font-size: 20px; text-align: center; }
+        .summary-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; }
+        .modal-footer { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .confirm-btn { background: var(--green); color: white; border: none; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .cancel-btn { background: #eee; border: none; padding: 10px; border-radius: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="header">
     <div class="logo-circle">S</div>
-    <h1>Sultan Murat Dürümcüsü</h1>
+    <h1>SULTAN MURAT DÜRÜMCÜSÜ</h1>
     <p>Damaklarda Taht Kuran Lezzetler</p>
 </div>
 
-<div class="container" id="menu-container"></div>
+<div class="container">
+    <div id="menu-items"></div>
+    <div class="category-title">SİPARİŞ NOTU</div>
+    <div class="note-area">
+        <textarea id="order-note" rows="3" placeholder="Örn: Soğansız olsun, acı bol olsun..."></textarea>
+    </div>
+</div>
 
-<div class="cart-bar" onclick="sendWhatsApp()">
-    <div class="cart-info">🛒 SEPETİM (<span id="count">0</span>)</div>
-    <div id="total" class="cart-total">0 TL</div>
+<div class="cart-bar" onclick="showSummary()">
+    <div class="cart-info">🛒 SEPETİM (<span id="cart-count">0</span>)</div>
+    <div id="cart-total" class="cart-total">0 TL</div>
+</div>
+
+<div id="summary-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">Sipariş Özeti</div>
+        <div id="summary-list"></div>
+        <div id="summary-note" style="margin-top:15px; font-style:italic; font-size:14px; color:#666;"></div>
+        <div class="modal-footer">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:18px; margin-bottom:10px;">
+                <span>Toplam:</span><span id="summary-total">0 TL</span>
+            </div>
+            <button class="confirm-btn" onclick="sendWhatsApp()">Onayla ve WhatsApp'a Gönder</button>
+            <button class="cancel-btn" onclick="closeSummary()">Kapat / Düzenle</button>
+        </div>
+    </div>
 </div>
 
 <script>
-    const menuData = {
-        "ÇORBALAR": [
-            { id: 1, name: "Mercimek Çorbası", price: 100 },
-            { id: 2, name: "Az Mercimek Çorbası", price: 50 }
-        ],
-        "DÜRÜMLER": [
-            { id: 3, name: "Adana Dürüm", price: 210, hasDuble: true },
-            { id: 4, name: "Urfa Dürüm", price: 210, hasDuble: true },
-            { id: 5, name: "Tavuk Dürüm", price: 210, hasDuble: true },
-            { id: 6, name: "Et Dürüm (Şiş)", price: 230, hasDuble: true }
-        ],
-        "PORSİYONLAR": [
-            { id: 7, name: "Adana Porsiyon", price: 420, has15: true },
-            { id: 8, name: "Urfa Porsiyon", price: 420, has15: true },
-            { id: 9, name: "Tavuk Porsiyon", price: 420, has15: true },
-            { id: 10, name: "Kanat Porsiyon", price: 420, has15: true },
-            { id: 11, name: "Et Şiş Porsiyon", price: 460, has15: true }
-        ],
-        "İÇECEKLER": [
-            { id: 12, name: "Küçük Ayran", price: 30 },
-            { id: 13, name: "Büyük Ayran", price: 40 },
-            { id: 14, name: "Kola/Fanta (330ml)", price: 60 },
-            { id: 15, name: "1 Litre Kola", price: 100 },
-            { id: 16, name: "Şalgam", price: 40 },
-            { id: 17, name: "Soda Çeşitleri", price: 30 },
-            { id: 18, name: "Su", price: 15 }
-        ]
-    };
+    const menuData = [
+        { cat: "ÇORBALAR", items: [{ id: 1, name: "Mercimek Çorbası", price: 100 }, { id: 2, name: "Az Mercimek Çorbası", price: 50 }]},
+        { cat: "DÜRÜMLER", items: [{ id: 3, name: "Adana Dürüm", price: 210, type: "duble" }, { id: 4, name: "Urfa Dürüm", price: 210, type: "duble" }, { id: 5, name: "Tavuk Dürüm", price: 210, type: "duble" }, { id: 6, name: "Et Dürüm (Şiş)", price: 230, type: "duble" }]},
+        { cat: "PORSİYONLAR", items: [{ id: 7, name: "Adana Porsiyon", price: 420, type: "1.5" }, { id: 8, name: "Urfa Porsiyon", price: 420, type: "1.5" }, { id: 9, name: "Tavuk Porsiyon", price: 420, type: "1.5" }, { id: 10, name: "Kanat Porsiyon", price: 420, type: "1.5" }, { id: 11, name: "Et Şiş Porsiyon", price: 460, type: "1.5" }]},
+        { cat: "İÇECEKLER", items: [{ id: 12, name: "Küçük Ayran", price: 30 }, { id: 13, name: "Büyük Ayran", price: 40 }, { id: 14, name: "Kola/Fanta (330ml)", price: 60 }, { id: 15, name: "1 Litre Kola", price: 100 }, { id: 16, name: "Şalgam", price: 40 }, { id: 17, name: "Su", price: 15 }]}
+    ];
 
     let cart = {};
+    let selections = {};
 
-    function renderMenu() {
-        const container = document.getElementById('menu-container');
-        for (let cat in menuData) {
-            container.innerHTML += `<div class="category-title">${cat}</div>`;
-            menuData[cat].forEach(item => {
-                let optionsHtml = '';
-                if(item.hasDuble) {
-                    optionsHtml = `
-                        <div class="options">
-                            <button class="opt-btn active" id="normal-${item.id}" onclick="setOption(${item.id}, 'Normal', 0)">Tek</button>
-                            <button class="opt-btn" id="extra-${item.id}" onclick="setOption(${item.id}, 'Duble', 100)">Duble (+100TL)</button>
-                        </div>`;
-                } else if(item.has15) {
-                    optionsHtml = `
-                        <div class="options">
-                            <button class="opt-btn active" id="normal-${item.id}" onclick="setOption(${item.id}, 'Normal', 0)">1 Porsiyon</button>
-                            <button class="opt-btn" id="extra-${item.id}" onclick="setOption(${item.id}, '1.5 Porsiyon', 200)">1.5 Porsiyon (+200TL)</button>
-                        </div>`;
-                }
-
-                container.innerHTML += `
-                    <div class="item-card">
-                        <div class="item-main">
-                            <div class="item-info">
-                                <h4>${item.name}</h4>
-                                <p id="price-display-${item.id}">${item.price} TL</p>
-                            </div>
-                            <div class="controls">
-                                <button class="btn btn-minus" onclick="changeQty(${item.id}, -1)">-</button>
-                                <span class="qty" id="qty-${item.id}">0</span>
-                                <button class="btn btn-plus" onclick="changeQty(${item.id}, 1)">+</button>
-                            </div>
-                        </div>
-                        ${optionsHtml}
-                    </div>`;
+    function init() {
+        const container = document.getElementById('menu-items');
+        menuData.forEach(section => {
+            container.innerHTML += `<div class="category-title">${section.cat}</div>`;
+            section.items.forEach(item => {
+                selections[item.id] = { isExtra: false };
+                let opts = item.type === "duble" ? `<div class="options-row"><button class="opt-btn active" onclick="setOpt(${item.id},false)">Tek</button><button class="opt-btn" onclick="setOpt(${item.id},true)">Duble</button></div>` : 
+                           item.type === "1.5" ? `<div class="options-row"><button class="opt-btn active" onclick="setOpt(${item.id},false)">1 Pors.</button><button class="opt-btn" onclick="setOpt(${item.id},true)">1.5 Pors.</button></div>` : "";
+                container.innerHTML += `<div class="item-card"><div class="item-header"><div class="item-info"><h4>${item.name}</h4><p id="p-${item.id}">${item.price} TL</p></div><div class="controls"><button class="btn-minus" onclick="upd(${item.id},-1)">-</button><b id="q-${item.id}">0</b><button class="btn-plus" onclick="upd(${item.id},1)">+</button></div></div>${opts}</div>`;
             });
-        }
+        });
     }
 
-    let selectedOptions = {};
-
-    function setOption(id, type, extraPrice) {
-        selectedOptions[id] = { type, extraPrice };
-        document.querySelectorAll(`[id^="normal-${id}"], [id^="extra-${id}"]`).forEach(btn => btn.classList.remove('active'));
-        if(type === 'Normal') document.getElementById(`normal-${id}`).classList.add('active');
-        else document.getElementById(`extra-${id}`).classList.add('active');
-        
-        // Fiyatı ekranda güncelle
-        const basePrice = findItem(id).price;
-        document.getElementById(`price-display-${id}`).innerText = (basePrice + extraPrice) + " TL";
-        
-        // Eğer sepette ürün varsa güncelle
-        if(cart[id]) {
-            cart[id].option = type;
-            cart[id].currentPrice = basePrice + extraPrice;
-            updateCartDisplay();
-        }
+    function setOpt(id, isEx) {
+        selections[id].isExtra = isEx;
+        const it = findIt(id);
+        const card = document.getElementById(`p-${id}`).closest('.item-card');
+        card.querySelectorAll('.opt-btn').forEach((b,i) => b.classList.toggle('active', i=== (isEx?1:0)));
+        let pr = isEx ? (it.type==="duble"?420:630) : it.price;
+        if(it.name.includes("Et") && isEx) pr += it.type==="duble"?40:60;
+        document.getElementById(`p-${id}`).innerText = pr + " TL";
+        if(cart[id]) upd(id, 0);
     }
 
-    function findItem(id) {
-        for (let cat in menuData) {
-            let item = menuData[cat].find(i => i.id === id);
-            if(item) return item;
-        }
+    function findIt(id) { for(let s of menuData) { let i = s.items.find(x=>x.id===id); if(i) return i; } }
+
+    function upd(id, ch) {
+        if(!cart[id]) cart[id] = { qty: 0 };
+        const it = findIt(id), isEx = selections[id].isExtra;
+        let pr = isEx ? (it.type==="duble"?420:630) : it.price;
+        if(it.name.includes("Et") && isEx) pr += it.type==="duble"?40:60;
+        cart[id].qty += ch;
+        if(cart[id].qty <= 0) { delete cart[id]; document.getElementById(`q-${id}`).innerText = 0; }
+        else { cart[id] = { name: it.name + (isEx?(it.type==="duble"?" (Duble)":" (1.5)"): ""), price: pr, qty: cart[id].qty }; document.getElementById(`q-${id}`).innerText = cart[id].qty; }
+        renderC();
     }
 
-    function changeQty(id, delta) {
-        let item = findItem(id);
-        if(!cart[id]) {
-            let opt = selectedOptions[id] || { type: 'Normal', extraPrice: 0 };
-            cart[id] = { name: item.name, basePrice: item.price, qty: 0, option: opt.type, currentPrice: item.price + opt.extraPrice };
-        }
-        
-        cart[id].qty += delta;
-        if(cart[id].qty <= 0) {
-            cart[id].qty = 0;
-            delete cart[id];
-        }
-        
-        document.getElementById(`qty-${id}`).innerText = cart[id] ? cart[id].qty : 0;
-        updateCartDisplay();
+    function renderC() {
+        let t=0, c=0; for(let i in cart) { t += cart[i].price * cart[i].qty; c += cart[i].qty; }
+        document.getElementById('cart-total').innerText = t + " TL";
+        document.getElementById('cart-count').innerText = c;
     }
 
-    function updateCartDisplay() {
-        let total = 0;
-        let count = 0;
-        for(let id in cart) {
-            total += cart[id].currentPrice * cart[id].qty;
-            count += cart[id].qty;
+    function showSummary() {
+        let list = document.getElementById('summary-list'), t=0, has=false;
+        list.innerHTML = "";
+        for(let i in cart) {
+            has = true;
+            t += cart[i].price * cart[id=i].qty;
+            list.innerHTML += `<div class="summary-item"><span>${cart[i].qty} x ${cart[i].name}</span><span>${cart[i].price * cart[i].qty} TL</span></div>`;
         }
-        document.getElementById('count').innerText = count;
-        document.getElementById('total').innerText = total + " TL";
+        if(!has) return alert("Sepetiniz boş!");
+        document.getElementById('summary-total').innerText = t + " TL";
+        document.getElementById('summary-note').innerText = "Not: " + (document.getElementById('order-note').value || "Yok");
+        document.getElementById('summary-modal').style.display = "flex";
     }
+
+    function closeSummary() { document.getElementById('summary-modal').style.display = "none"; }
 
     function sendWhatsApp() {
-        let total = 0;
-        let message = "*Sultan Murat Dürümcüsü Siparişi*\n--------------------------\n";
-        let hasItems = false;
-        
-        for(let id in cart) {
-            hasItems = true;
-            let itemTotal = cart[id].currentPrice * cart[id].qty;
-            total += itemTotal;
-            message += `• ${cart[id].qty} Adet ${cart[id].name}`;
-            if(cart[id].option !== 'Normal') message += ` (${cart[id].option})`;
-            message += ` - ${itemTotal} TL\n`;
-        }
-        
-        if(!hasItems) return alert("Sepetiniz boş!");
-        
-        message += "--------------------------\n";
-        message += `*TOPLAM TUTAR: ${total} TL*`;
-        
-        window.open(`https://wa.me/905466122000?text=${encodeURIComponent(message)}`, '_blank');
+        let t=0, msg = "*Sultan Murat Dürümcüsü Siparişi*\n\n";
+        for(let i in cart) { msg += `• ${cart[i].qty} x ${cart[i].name} - ${cart[i].price * cart[i].qty} TL\n`; t += cart[i].price * cart[i].qty; }
+        const n = document.getElementById('order-note').value;
+        if(n) msg += `\n*Not:* ${n}`;
+        msg += `\n\n*Toplam:* ${t} TL`;
+        window.open(`https://wa.me/905466122000?text=${encodeURIComponent(msg)}`);
+        closeSummary();
     }
-
-    renderMenu();
+    init();
 </script>
-
 </body>
 </html>
