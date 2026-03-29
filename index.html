@@ -231,7 +231,7 @@
 </div>
 
 <div class="search-bar">
-    <input type="text" id="search-input" class="search-input" placeholder="🔍 Menüde ara... (Adana, Tavuk, Ayran...)">
+    <input type="text" id="search-input" class="search-input" placeholder="🔍 Menüde ara... (Adana, Karışık, Fanta...)">
 </div>
 
 <div class="container">
@@ -242,7 +242,7 @@
 
 <div class="container">
     <div class="delivery-info">
-        ⏱ <strong>Tahmini Teslim Süresi:</strong> 35-45 dakika<br>
+        ⏱ <strong>Tahmini Teslim Süresi:</strong> 30-40 dakika<br>
         📍 Teslimat: İstanbul Avrupa Yakası - Sultan Murat Mahallesi ve çevresi<br>
         💰 <strong>Minimum Sipariş:</strong> 420 TL | Teslimat Ücreti: Ücretsiz
     </div>
@@ -263,7 +263,7 @@
         <h2 style="text-align:center; margin:0 0 20px;">Sipariş Özeti</h2>
         
         <div style="background:#f9f9f9; padding:16px; border-radius:16px; margin-bottom:20px; font-size:15px; line-height:1.6;">
-            ⏱ <strong>Tahmini Teslim Süresi:</strong> 35-45 dakika<br>
+            ⏱ <strong>Tahmini Teslim Süresi:</strong> 30-40 dakika<br>
             📍 <strong>Adres:</strong> <span id="summary-addr-text"></span>
         </div>
         
@@ -280,15 +280,15 @@
 
 <script>
     // ==================== AYARLAR ====================
-    const DELIVERY_TIME = "35-45 dakika";
-    const MIN_ORDER = 420;           // ← Değiştirildi
+    const DELIVERY_TIME = "30-40 dakika";
+    const MIN_ORDER = 420;
     const DELIVERY_FEE = 0;
 
-    // ==================== MENÜ VERİSİ ====================
+    // ==================== MENÜ VERİSİ (Karışık Porsiyon Eklendi) ====================
     const menuData = [
         { cat: "ÇORBALAR", items: [
             { id: 1, name: "Mercimek Çorbası", price: 100 },
-            { id: 2, name: "Tarhana Çorbası", price: 110 }
+            { id: 2, name: "Az Mercimek Çorbası", price: 50 }
         ]},
         { cat: "DÜRÜMLER", items: [
             { id: 3, name: "Adana Dürüm", price: 210, type: "duble" },
@@ -301,15 +301,18 @@
             { id: 8, name: "Urfa Porsiyon", price: 420, type: "1.5" },
             { id: 9, name: "Tavuk Porsiyon", price: 420, type: "1.5" },
             { id: 10, name: "Kanat Porsiyon", price: 420, type: "1.5" },
-            { id: 11, name: "Et Şiş Porsiyon", price: 460, type: "1.5" }
+            { id: 11, name: "Et Şiş Porsiyon", price: 460, type: "1.5" },
+            { id: 20, name: "Karışık Porsiyon", price: 1000, type: "1.5" }   // ← Yeni eklendi
         ]},
         { cat: "İÇECEKLER", items: [
             { id: 12, name: "Küçük Ayran", price: 30 },
             { id: 13, name: "Büyük Ayran", price: 40 },
             { id: 14, name: "Kola (330ml)", price: 60 },
-            { id: 15, name: "1 Litre Kola", price: 100 },
-            { id: 16, name: "Şalgam", price: 40 },
-            { id: 17, name: "Su (0.5L)", price: 15 }
+            { id: 15, name: "Fanta (330ml)", price: 60 },
+            { id: 16, name: "Sade Soda", price: 30 },
+            { id: 17, name: "1 Litre Kola", price: 100 },
+            { id: 18, name: "Şalgam", price: 40 },
+            { id: 19, name: "Su (0.5L)", price: 15 }
         ]}
     ];
 
@@ -325,7 +328,6 @@
         itemSelections = {};
         saveCart();
         renderCart();
-        // Miktarları sıfırla
         document.querySelectorAll('.qty-label').forEach(el => el.textContent = '0');
     }
 
@@ -345,7 +347,7 @@
                 if (item.type === "duble") {
                     optsHTML = `<div class="options-row"><button class="opt-btn active" onclick="setOpt(${item.id}, false)">Tek</button><button class="opt-btn" onclick="setOpt(${item.id}, true)">Duble (+210 TL)</button></div>`;
                 } else if (item.type === "1.5") {
-                    optsHTML = `<div class="options-row"><button class="opt-btn active" onclick="setOpt(${item.id}, false)">1 Porsiyon</button><button class="opt-btn" onclick="setOpt(${item.id}, true)">1.5 Porsiyon (+210 TL)</button></div>`;
+                    optsHTML = `<div class="options-row"><button class="opt-btn active" onclick="setOpt(${item.id}, false)">1 Porsiyon</button><button class="opt-btn" onclick="setOpt(${item.id}, true)">1.5 Porsiyon</button></div>`;
                 }
                 
                 const noteHTML = (section.cat === "DÜRÜMLER" || section.cat === "PORSİYONLAR") ?
@@ -382,8 +384,12 @@
     function setOpt(id, isExtra) {
         itemSelections[id].isExtra = isExtra;
         const item = findItem(id);
-        let newPrice = isExtra ? (item.type === "duble" ? 420 : 630) : item.price;
-        if (item.name.includes("Et") && isExtra) newPrice += (item.type === "duble" ? 40 : 60);
+        let newPrice = isExtra ? (item.type === "duble" ? 420 : 1500) : item.price;  // Karışık için 1.5 porsiyon 1500 TL
+        
+        // Et ürünleri için ekstra ücret (gerekirse)
+        if (item.name.includes("Et") && isExtra && item.name !== "Karışık Porsiyon") {
+            newPrice += (item.type === "duble" ? 40 : 60);
+        }
         
         document.getElementById(`price-${id}`).textContent = newPrice + " TL";
         
@@ -392,7 +398,7 @@
         
         if (cart[id]) {
             cart[id].price = newPrice;
-            cart[id].name = item.name + (isExtra ? (item.type === "duble" ? " (Duble)" : " (1.5 Pors)") : "");
+            cart[id].name = item.name + (isExtra ? " (1.5 Porsiyon)" : "");
             renderCart();
             saveCart();
         }
@@ -411,12 +417,13 @@
             let price = item.price;
             const sel = itemSelections[id];
             if (sel.isExtra) {
-                price = item.type === "duble" ? 420 : 630;
-                if (item.name.includes("Et")) price += item.type === "duble" ? 40 : 60;
+                price = item.name === "Karışık Porsiyon" ? 1500 : (item.type === "duble" ? 420 : 630);
+                if (item.name.includes("Et") && item.name !== "Karışık Porsiyon") 
+                    price += (item.type === "duble" ? 40 : 60);
             }
             cart[id] = {
                 qty: 0,
-                name: item.name + (sel.isExtra ? (item.type === "duble" ? " (Duble)" : " (1.5 Pors)") : ""),
+                name: item.name + (sel.isExtra ? " (1.5 Porsiyon)" : ""),
                 price: price,
                 note: document.getElementById(`note-${id}`) ? document.getElementById(`note-${id}`).value : ""
             };
@@ -511,7 +518,6 @@
 
         window.open(`https://wa.me/905466122000?text=${encodeURIComponent(msg)}`, '_blank');
         
-        // Sipariş sonrası otomatik sepet temizleme
         closeSummary();
         setTimeout(() => {
             clearCart();
