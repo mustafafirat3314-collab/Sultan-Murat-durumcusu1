@@ -6,47 +6,43 @@
     <title>Sultan Murat Dürümcüsü</title>
     <style>
         :root { --primary: #a34e25; --bg: #fff5eb; --card: #ffffff; --green: #2ecc71; --red: #e74c3c; --text: #2c3e50; }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background-color: var(--bg); color: var(--text); padding-bottom: 120px; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background-color: var(--bg); color: var(--text); padding-bottom: 120px; }
         
-        .header { background: linear-gradient(135deg, var(--primary), #7a3a1b); color: white; text-align: center; padding: 45px 20px; border-radius: 0 0 40px 40px; box-shadow: 0 10px 20px rgba(163, 78, 37, 0.2); }
-        .logo-circle { background: white; width: 85px; height: 85px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--primary); font-size: 42px; font-weight: 900; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .header h1 { margin: 5px 0; font-size: 28px; letter-spacing: 2px; }
+        .header { background: linear-gradient(135deg, var(--primary), #7a3a1b); color: white; text-align: center; padding: 45px 20px; border-radius: 0 0 40px 40px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .logo-circle { background: white; width: 85px; height: 85px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--primary); font-size: 42px; font-weight: 900; }
         
         .container { padding: 0 15px; max-width: 550px; margin: auto; }
-        .category-title { border-left: 6px solid var(--primary); padding-left: 15px; margin: 35px 0 20px; font-weight: 800; color: var(--primary); font-size: 22px; text-transform: uppercase; letter-spacing: 1px; }
+        .category-title { border-left: 6px solid var(--primary); padding-left: 15px; margin: 35px 0 20px; font-weight: 800; color: var(--primary); font-size: 22px; text-transform: uppercase; }
 
-        /* Ürün Kartı Tasarımı */
-        .item-card { background: var(--card); border-radius: 25px; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.04); border: 1px solid rgba(163, 78, 37, 0.05); transition: transform 0.2s; }
-        .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .item-card { background: var(--card); border-radius: 25px; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.04); border: 1px solid rgba(163, 78, 37, 0.05); }
+        .item-header { display: flex; justify-content: space-between; align-items: center; }
         .item-info h4 { margin: 0; font-size: 19px; font-weight: 700; color: #1a1a1a; }
         .item-info p { margin: 5px 0 0; color: var(--primary); font-weight: 700; font-size: 18px; }
 
-        /* Modern Kontroller */
+        /* + ve - Buton Renkleri */
         .controls { display: flex; align-items: center; gap: 15px; background: #f8f9fa; padding: 5px 10px; border-radius: 15px; }
-        .btn-plus { background: var(--green); color: white; border: none; width: 40px; height: 40px; border-radius: 12px; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
-        .btn-minus { background: var(--red); color: white; border: none; width: 40px; height: 40px; border-radius: 12px; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
+        .btn-plus { background: var(--green); color: white; border: none; width: 40px; height: 40px; border-radius: 12px; font-size: 24px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
+        .btn-minus { background: var(--red); color: white; border: none; width: 40px; height: 40px; border-radius: 12px; font-size: 24px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
         .qty-label { font-size: 20px; font-weight: 800; min-width: 25px; text-align: center; }
 
-        /* Duble Butonları */
         .options-row { display: flex; gap: 10px; margin-top: 15px; }
-        .opt-btn { background: #f0f2f5; border: 1px solid #e0e0e0; padding: 10px; border-radius: 12px; font-size: 14px; font-weight: 700; color: #555; cursor: pointer; flex: 1; transition: 0.3s; }
-        .opt-btn.active { background: #3498db; color: white; border-color: #3498db; box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3); }
+        .opt-btn { background: #f0f2f5; border: 1px solid #e0e0e0; padding: 10px; border-radius: 12px; font-size: 14px; font-weight: 700; color: #555; cursor: pointer; flex: 1; }
+        .opt-btn.active { background: #3498db; color: white; border-color: #3498db; }
 
-        /* Ürüne Özel Not Girişi */
-        .item-note-input { width: 100%; margin-top: 15px; border: 1px solid #eee; border-radius: 10px; padding: 10px; font-size: 13px; background: #fafafa; border-left: 3px solid #ddd; outline: none; transition: 0.3s; }
-        .item-note-input:focus { border-left-color: var(--primary); background: #fff; }
+        .item-note-input { width: 100%; margin-top: 15px; border: 1px solid #eee; border-radius: 10px; padding: 10px; font-size: 13px; background: #fafafa; box-sizing: border-box; }
 
-        /* Alt Sepet Çubuğu */
+        /* Adres Alanı */
+        .address-box { background: white; border-radius: 25px; padding: 20px; border: 2px solid #ddd; margin: 30px 0; }
+        .address-box textarea { width: 100%; border: none; font-family: inherit; font-size: 15px; outline: none; resize: none; }
+        .address-box.error { border-color: var(--red); background: #fff5f5; }
+
         .cart-bar { position: fixed; bottom: 25px; left: 15px; right: 15px; background: #1a1a1a; padding: 22px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); cursor: pointer; max-width: 500px; margin: auto; z-index: 1000; color: white; }
         .cart-total { color: var(--green); font-weight: 900; font-size: 22px; }
 
-        /* Modal / Onay Ekranı */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
         .modal-content { background: white; width: 100%; max-width: 450px; border-radius: 35px; padding: 30px; max-height: 85vh; overflow-y: auto; }
         .summary-item { border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
-        .summary-item b { font-size: 16px; color: #1a1a1a; }
-        .summary-item p { margin: 5px 0 0; font-size: 13px; color: #e67e22; font-style: italic; }
-        .confirm-btn { background: var(--green); color: white; border: none; padding: 18px; border-radius: 20px; font-weight: 800; cursor: pointer; font-size: 18px; margin-top: 20px; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4); }
+        .confirm-btn { background: var(--green); color: white; border: none; padding: 18px; border-radius: 20px; font-weight: 800; cursor: pointer; font-size: 18px; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -59,6 +55,13 @@
 
 <div class="container" id="menu-items"></div>
 
+<div class="container">
+    <div class="category-title">AÇIK ADRESİNİZ</div>
+    <div class="address-box" id="addr-box">
+        <textarea id="customer-address" rows="3" placeholder="Lütfen açık adresinizi yazın (Kapı no, kat vb. belirtin)..."></textarea>
+    </div>
+</div>
+
 <div class="cart-bar" onclick="showSummary()">
     <div style="font-weight: 800; font-size: 18px;">🛒 SEPETİM (<span id="cart-count">0</span>)</div>
     <div id="cart-total" class="cart-total">0 TL</div>
@@ -68,11 +71,12 @@
     <div class="modal-content">
         <h2 style="text-align:center; margin-top:0;">Sipariş Onayı</h2>
         <div id="summary-list"></div>
+        <div id="summary-addr" style="margin-top:15px; padding:10px; background:#f9f9f9; border-radius:10px; font-size:14px; border-left:4px solid var(--primary);"></div>
         <div style="margin-top:25px; display:flex; justify-content:space-between; font-size:22px; font-weight:900; border-top: 2px solid #eee; padding-top: 15px;">
             <span>TOPLAM:</span><span id="summary-total" style="color:var(--green);">0 TL</span>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px;">
-            <button class="confirm-btn" onclick="sendWhatsApp()">Siparişi WhatsApp'a Gönder</button>
+            <button class="confirm-btn" onclick="sendWhatsApp()">Onayla ve WhatsApp'a Gönder</button>
             <button style="background:none; border:none; color:#999; cursor:pointer; font-weight:bold;" onclick="closeSummary()">Kapat ve Düzenle</button>
         </div>
     </div>
@@ -99,7 +103,7 @@
                            item.type === "1.5" ? `<div class="options-row"><button class="opt-btn active" onclick="setOpt(${item.id},false)">1 Pors.</button><button class="opt-btn" onclick="setOpt(${item.id},true)">1.5 Pors.</button></div>` : "";
                 
                 let noteInput = (section.cat === "DÜRÜMLER" || section.cat === "PORSİYONLAR") ? 
-                                `<input type="text" class="item-note-input" id="note-${item.id}" placeholder="Özel isteğinizi yazın (Örn: Soğansız)..." onchange="syncNote(${item.id})">` : "";
+                                `<input type="text" class="item-note-input" id="note-${item.id}" placeholder="Ürün notu (Örn: Soğansız)..." onchange="syncNote(${item.id})">` : "";
 
                 container.innerHTML += `
                     <div class="item-card">
@@ -153,18 +157,25 @@
     }
 
     function showSummary() {
+        const addr = document.getElementById('customer-address').value.trim();
+        if(!addr) { 
+            alert("Lütfen teslimat adresi giriniz!"); 
+            document.getElementById('addr-box').classList.add('error');
+            document.getElementById('customer-address').focus();
+            return; 
+        }
+        document.getElementById('addr-box').classList.remove('error');
+        
         let list = document.getElementById('summary-list'), t=0, has=false;
         list.innerHTML = "";
         for(let i in cart) {
             has = true;
             t += cart[i].price * cart[i].qty;
-            list.innerHTML += `<div class="summary-item">
-                <div style="display:flex; justify-content:space-between;"><b>${cart[i].qty} x ${cart[i].name}</b><span>${cart[i].price * cart[i].qty} TL</span></div>
-                ${cart[i].note ? `<p>— ${cart[i].note}</p>` : ""}
-            </div>`;
+            list.innerHTML += `<div class="summary-item"><div style="display:flex; justify-content:space-between;"><b>${cart[i].qty} x ${cart[i].name}</b><span>${cart[i].price * cart[i].qty} TL</span></div>${cart[i].note ? `<p style="margin:5px 0 0; color:#e67e22; font-style:italic; font-size:13px;">— ${cart[i].note}</p>` : ""}</div>`;
         }
         if(!has) return alert("Sepetiniz boş!");
         document.getElementById('summary-total').innerText = t + " TL";
+        document.getElementById('summary-addr').innerText = "📍 Adres: " + addr;
         document.getElementById('summary-modal').style.display = "flex";
     }
 
@@ -172,12 +183,9 @@
 
     function sendWhatsApp() {
         let t=0, msg = "*Sultan Murat Dürümcüsü Siparişi*\n\n";
-        for(let i in cart) { 
-            msg += `• ${cart[i].qty} x ${cart[i].name} - ${cart[i].price * cart[i].qty} TL\n`;
-            if(cart[i].note) msg += `  (Not: ${cart[i].note})\n`;
-            t += cart[i].price * cart[i].qty; 
-        }
-        msg += `\n*Toplam:* ${t} TL`;
+        for(let i in cart) { msg += `• ${cart[i].qty} x ${cart[i].name} - ${cart[i].price * cart[i].qty} TL\n${cart[i].note ? `  (Not: ${cart[i].note})\n` : ""}`; t += cart[i].price * cart[i].qty; }
+        msg += `\n📍 *Adres:* ${document.getElementById('customer-address').value}`;
+        msg += `\n\n*Toplam:* ${t} TL`;
         window.open(`https://wa.me/905466122000?text=${encodeURIComponent(msg)}`);
         closeSummary();
     }
