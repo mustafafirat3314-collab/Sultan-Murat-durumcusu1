@@ -2,189 +2,121 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sultan Murat Dürümcüsü</title>
-    
-    <link rel="apple-touch-icon" href="https://img.icons8.com/ios-filled/150/c0392b/s.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sultan Murat Dürümcüsü - Menü</title>
     <style>
-        :root { --ana: #ba4a00; --acik: #fdf2e9; --yesil: #27ae60; --kirmizi: #c0392b; --mavi: #2980b9; --turuncu: #d35400; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--acik); margin: 0; padding: 10px; padding-bottom: 120px; -webkit-tap-highlight-color: transparent; }
-        
-        header { background: var(--ana); color: white; text-align: center; padding: 25px 15px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .logo-circle { width: 60px; height: 60px; background: white; color: var(--kirmizi); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; border: 3px solid var(--kirmizi); }
-        
-        .category-title { color: var(--ana); font-weight: bold; margin: 25px 5px 10px; font-size: 1.1rem; border-left: 4px solid var(--ana); padding-left: 10px; }
-        .section { background: white; border-radius: 18px; padding: 10px 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #f2f2f2; }
-        .item:last-child { border-bottom: none; }
-        
-        .add-btn { background: var(--yesil); color: white; width: 38px; height: 38px; border-radius: 10px; border: none; font-size: 22px; font-weight: bold; cursor: pointer; }
-        .extra-btn { background: var(--mavi); color: white; padding: 8px 10px; border-radius: 8px; border: none; font-size: 10px; font-weight: bold; margin-right: 5px; cursor: pointer; }
-        .pors-btn { background: var(--turuncu); color: white; padding: 8px 10px; border-radius: 8px; border: none; font-size: 10px; font-weight: bold; margin-right: 5px; cursor: pointer; }
-
-        #cart-panel { position: fixed; bottom: 0; left: 0; right: 0; background: white; z-index: 10000; border-radius: 25px 25px 0 0; box-shadow: 0 -5px 30px rgba(0,0,0,0.2); transition: 0.4s ease-in-out; transform: translateY(calc(100% - 75px)); }
-        #cart-panel.open { transform: translateY(0); }
-        .cart-header { height: 75px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; cursor: pointer; }
-        .cart-content { padding: 20px; max-height: 70vh; overflow-y: auto; }
-        .cart-item { margin-bottom: 15px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
-        
-        .item-note-input { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #eee; border-radius: 8px; font-size: 13px; box-sizing: border-box; background: #fafafa; }
-        .wa-btn { background: #25D366; color: white; width: 100%; padding: 18px; border-radius: 15px; border: none; font-size: 1.1rem; font-weight: bold; margin-top: 15px; }
-        input[type="text"], textarea { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; }
+        :root { --primary: #a34e25; --bg: #fff5eb; --card: #ffffff; --green: #25D366; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: #333; padding-bottom: 100px; }
+        .header { background-color: var(--primary); color: white; text-align: center; padding: 35px 15px; border-radius: 0 0 30px 30px; }
+        .logo-circle { background: white; width: 75px; height: 75px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--primary); font-size: 36px; font-weight: bold; border: 3px solid rgba(255,255,255,0.3); }
+        .header h1 { margin: 5px 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; }
+        .header p { margin: 0; font-style: italic; opacity: 0.9; font-size: 14px; }
+        .container { padding: 15px; max-width: 500px; margin: auto; }
+        .category-title { border-left: 5px solid var(--primary); padding-left: 12px; margin: 30px 0 15px; font-weight: bold; color: var(--primary); font-size: 22px; text-transform: uppercase; }
+        .item-card { background: var(--card); border-radius: 18px; padding: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(163, 78, 37, 0.08); border: 1px solid rgba(163, 78, 37, 0.05); }
+        .item-info h4 { margin: 0; font-size: 17px; color: #222; }
+        .item-info p { margin: 6px 0 0; color: var(--primary); font-weight: bold; font-size: 16px; }
+        .add-btn { background: var(--green); color: white; border: none; width: 42px; height: 42px; border-radius: 12px; font-size: 24px; cursor: pointer; transition: transform 0.1s; }
+        .add-btn:active { transform: scale(0.9); }
+        .cart-bar { position: fixed; bottom: 20px; left: 15px; right: 15px; background: white; padding: 18px; border-radius: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -5px 25px rgba(0,0,0,0.15); cursor: pointer; max-width: 470px; margin: auto; border: 2px solid var(--green); }
+        .cart-info { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #333; font-size: 16px; }
+        .cart-total { color: var(--green); font-weight: 800; font-size: 18px; }
     </style>
 </head>
 <body>
 
-<header>
+<div class="header">
     <div class="logo-circle">S</div>
-    <h1>SULTAN MURAT DÜRÜMCÜSÜ</h1>
+    <h1>Sultan Murat Dürümcüsü</h1>
     <p>Damaklarda Taht Kuran Lezzetler</p>
-</header>
+</div>
 
-<div id="menu-container"></div>
+<div class="container" id="menu-container"></div>
 
-<div id="cart-panel">
-    <div class="cart-header" onclick="toggleCart()">
-        <span style="font-weight: bold; color: var(--ana);">🛒 SEPETİM (<span id="urun-adet">0</span>)</span>
-        <span style="font-weight: 900; font-size: 1.3rem; color: var(--yesil);" id="panel-toplam">0 TL</span>
-    </div>
-    <div class="cart-content">
-        <div id="cart-items-list"></div>
-        <input type="text" id="musteri-ad" placeholder="Adınız Soyadınız">
-        <textarea id="musteri-adres" rows="2" placeholder="Teslimat Adresiniz"></textarea>
-        <div style="display:flex; justify-content:space-between; margin-top:20px; font-size:1.4rem; font-weight:bold; border-top: 1px solid #eee; padding-top:10px;">
-            <span>TOPLAM:</span>
-            <span id="toplam-fiyat">0</span><span> TL</span>
-        </div>
-        <button class="wa-btn" onclick="siparisGonder()">WhatsApp'a Gönder</button>
-    </div>
+<div class="cart-bar" onclick="sendWhatsApp()">
+    <div class="cart-info">🛒 SEPETİM (<span id="count">0</span>)</div>
+    <div id="total" class="cart-total">0 TL</div>
 </div>
 
 <script>
-    const menu = [
-        { c: "ÇORBALAR", i: [
-            { id: 1, n: "Mercimek Çorba", p: 90, noNote: false },
-            { id: 2, n: "Az Mercimek Çorba", p: 50, noNote: false }
-        ]},
-        { c: "DÜRÜMLER", i: [
-            { id: 3, n: "Adana Dürüm", p: 200, duble: 400 },
-            { id: 4, n: "Urfa Dürüm", p: 200, duble: 400 },
-            { id: 5, n: "Et Dürüm (Şiş)", p: 220, duble: 440 },
-            { id: 6, n: "Tavuk Dürüm", p: 200, duble: 400 }
-        ]},
-        { c: "PORSİYONLAR", i: [
-            { id: 7, n: "Adana Porsiyon", p: 400, bucuk: 600 },
-            { id: 8, n: "Urfa Porsiyon", p: 400, bucuk: 600 },
-            { id: 9, n: "Et Şiş Porsiyon", p: 440, bucuk: 660 },
-            { id: 10, n: "Tavuk Porsiyon", p: 400, bucuk: 600 },
-            { id: 11, n: "Kanat Porsiyon", p: 400, bucuk: 600 },
-            { id: 12, n: "Karışık Izgara", p: 950 }
-        ]},
-        { c: "TATLI VE BAKLAVA", i: [
-            { id: 13, n: "Fıstıklı Baklava (1 KG)", p: 800, isKg: true },
-            { id: 14, n: "Cevizli Baklava (1 KG)", p: 600, isKg: true },
-            { id: 15, n: "Halka Tatlısı", p: 25 },
-            { id: 16, n: "Tulumba (1 KG)", p: 250, isKg: true }
-        ]},
-        { c: "İÇECEKLER", i: [
-            { id: 17, n: "Su", p: 15, noNote: true },
-            { id: 18, n: "Küçük Ayran", p: 30, noNote: true },
-            { id: 19, n: "Büyük Ayran", p: 40, noNote: true },
-            { id: 20, n: "Kutu Kola/Fanta", p: 60, noNote: true },
-            { id: 21, n: "Şişe Kola", p: 50, noNote: true },
-            { id: 22, n: "1 Litre Kola", p: 90, noNote: true },
-            { id: 23, n: "Soda", p: 30, noNote: true }
-        ]}
-    ];
+    const menu = {
+        "ÇORBALAR": [
+            { name: "Mercimek Çorbası", price: 100 },
+            { name: "Az Mercimek Çorbası", price: 50 }
+        ],
+        "DÜRÜMLER": [
+            { name: "Adana Dürüm", price: 210 },
+            { name: "Urfa Dürüm", price: 210 },
+            { name: "Tavuk Dürüm", price: 210 },
+            { name: "Et Dürüm (Şiş)", price: 230 }
+        ],
+        "PORSİYONLAR": [
+            { name: "Adana Porsiyon", price: 420 },
+            { name: "Urfa Porsiyon", price: 420 },
+            { name: "Tavuk Porsiyon", price: 420 },
+            { name: "Kanat Porsiyon", price: 420 },
+            { name: "Et Şiş Porsiyon", price: 460 }
+        ],
+        "İÇECEKLER": [
+            { name: "Küçük Ayran", price: 30 },
+            { name: "Büyük Ayran", price: 40 },
+            { name: "Kola/Fanta", price: 60 },
+            { name: "Şalgam", price: 40 },
+            { name: "Soda Çeşitleri", price: 30 },
+            { name: "Su", price: 15 }
+        ]
+    };
 
-    let cart = {}; 
+    let cart = [];
+    let totalPrice = 0;
 
     function renderMenu() {
-        let html = "";
-        menu.forEach(cat => {
-            html += `<div class="category-title">${cat.c}</div><div class="section">`;
-            cat.i.forEach(item => {
-                html += `<div class="item">
-                    <div style="flex:1"><b>${item.n}</b><br><span style="color:var(--ana)">${item.p} TL</span></div>
-                    <div style="display:flex; align-items:center;">
-                        ${item.duble ? `<button class="extra-btn" onclick="addToCart(${item.id}, 'duble')">Duble</button>` : ''}
-                        ${item.bucuk ? `<button class="pors-btn" onclick="addToCart(${item.id}, 'bucuk')">1.5 Por.</button>` : ''}
-                        <button class="add-btn" onclick="addToCart(${item.id}, 'normal')">+</button>
-                    </div>
-                </div>`;
+        const container = document.getElementById('menu-container');
+        for (let cat in menu) {
+            container.innerHTML += `<div class="category-title">${cat}</div>`;
+            menu[cat].forEach(item => {
+                container.innerHTML += `
+                    <div class="item-card">
+                        <div class="item-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.price} TL</p>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('${item.name}', ${item.price})">+</button>
+                    </div>`;
             });
-            html += `</div>`;
-        });
-        document.getElementById('menu-container').innerHTML = html;
-    }
-
-    function addToCart(id, type) {
-        const itm = menu.flatMap(c => c.i).find(x => x.id === id);
-        let finalName = itm.n;
-        let finalPrice = itm.p;
-        const cartId = id + "_" + type;
-
-        if(type === 'duble') { finalName = "Duble " + itm.n; finalPrice = itm.duble; }
-        if(type === 'bucuk') { finalName = "1.5 " + itm.n; finalPrice = itm.bucuk; }
-
-        if (!cart[cartId]) {
-            cart[cartId] = { n: finalName, p: finalPrice, qty: 1, note: "", noNote: itm.noNote, isKg: itm.isKg };
-        } else {
-            cart[cartId].qty += itm.isKg ? 0.5 : 1;
-        }
-        updateUI();
-    }
-
-    function toggleCart() { document.getElementById('cart-panel').classList.toggle('open'); }
-
-    function changeQty(cid, val, isKg) {
-        if (cart[cid]) {
-            cart[cid].qty += val;
-            if (cart[cid].qty <= 0) delete cart[cid];
-            updateUI();
         }
     }
 
-    function updateUI() {
-        const list = document.getElementById('cart-items-list');
-        list.innerHTML = "";
-        let total = 0, count = 0;
-        Object.keys(cart).forEach(cid => {
-            const i = cart[cid];
-            let sum = i.p * i.qty;
-            total += sum; count++;
-            list.innerHTML += `<div class="cart-item">
-                <div style="display:flex; justify-content:space-between; font-weight:bold;"><span>${i.n}</span><span>${sum} TL</span></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
-                    <small>Miktar: ${i.qty} ${i.isKg ? 'Kg' : 'Adet'}</small>
-                    <div>
-                        <button onclick="changeQty('${cid}', ${i.isKg ? -0.5 : -1}, ${i.isKg})" style="width:30px">-</button>
-                        <button onclick="changeQty('${cid}', ${i.isKg ? 0.5 : 1}, ${i.isKg})" style="width:30px">+</button>
-                    </div>
-                </div>
-                ${!i.noNote ? `<input type="text" class="item-note-input" placeholder="Not (Örn: Soğansız, bol fıstıklı vb.)" oninput="cart['${cid}'].note = this.value" value="${i.note}">` : ''}
-            </div>`;
-        });
-        document.getElementById('toplam-fiyat').innerText = total;
-        document.getElementById('panel-toplam').innerText = total + " TL";
-        document.getElementById('urun-adet').innerText = count;
+    function addToCart(name, price) {
+        cart.push({name, price});
+        totalPrice += price;
+        updateCart();
     }
 
-    function siparisGonder() {
-        const ad = document.getElementById('musteri-ad').value;
-        const adr = document.getElementById('musteri-adres').value;
-        if (!ad || !adr || Object.keys(cart).length === 0) { alert("Bilgileri doldurun!"); return; }
-        let msg = `*SULTAN MURAT DÜRÜMCÜSÜ*%0A👤 *${ad}*%0A📍 *${adr}*%0A%0A`;
-        Object.values(cart).forEach(i => {
-            msg += `✅ ${i.qty} ${i.isKg?'Kg':'Adet'} ${i.n}${i.note ? ' ('+i.note+')' : ''}%0A`;
-        });
-        msg += `%0A*TOPLAM: ${document.getElementById('toplam-fiyat').innerText} TL*`;
-        window.open(`https://wa.me/905466122000?text=${msg}`);
+    function updateCart() {
+        document.getElementById('count').innerText = cart.length;
+        document.getElementById('total').innerText = totalPrice + " TL";
     }
+
+    function sendWhatsApp() {
+        if(cart.length === 0) {
+            alert("Lütfen önce sepete ürün ekleyin!");
+            return;
+        }
+        let message = "*Sultan Murat Dürümcüsü Siparişi*\n--------------------------\n";
+        cart.forEach((item, index) => {
+            message += `${index + 1}. ${item.name} - ${item.price} TL\n`;
+        });
+        message += "--------------------------\n";
+        message += `*TOPLAM TUTAR: ${totalPrice} TL*`;
+        
+        // Numaranız otomatik eklendi: 905466122000
+        const whatsappLink = `https://wa.me/905466122000?text=${encodeURIComponent(message)}`;
+        window.open(whatsappLink, '_blank');
+    }
+
     renderMenu();
 </script>
+
 </body>
 </html>
